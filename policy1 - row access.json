@@ -1,0 +1,29 @@
+1 - Row Access 
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ReadOnlyAccess",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:BatchGet*",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+            ],
+            "Resource": "arn:aws:dynamodb:*:*:table/MyTable",
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "dynamodb:Attributes": [
+                        "column-name-1",
+                        "column-name-2",
+                        "column-name-3"
+                    ]
+                },
+                "StringEqualsIfExists": {"dynamodb:Select": "SPECIFIC_ATTRIBUTES"}
+            }
+        }
+    ]
+}
+
+
